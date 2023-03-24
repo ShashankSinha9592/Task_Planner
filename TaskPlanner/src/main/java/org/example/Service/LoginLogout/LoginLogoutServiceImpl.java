@@ -2,7 +2,7 @@ package org.example.Service.LoginLogout;
 
 import org.example.Exception.LoginException;
 import org.example.Exception.UserException;
-import org.example.Model.LoginDetails;
+import org.example.DTO.LoginDetails;
 import org.example.Model.User;
 import org.example.Model.UserCurrentSession;
 import org.example.Repository.UserCurrentSessionRepository;

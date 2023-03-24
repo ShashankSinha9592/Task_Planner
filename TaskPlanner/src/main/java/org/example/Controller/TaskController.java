@@ -1,6 +1,8 @@
 package org.example.Controller;
 
 import jakarta.validation.Valid;
+import org.example.DTO.PagingAndSortingDetails;
+import org.example.Model.Priority;
 import org.example.Model.Task;
 import org.example.Model.TaskStatus;
 import org.example.Service.Task.TaskService;
@@ -73,5 +75,40 @@ public class TaskController {
 
     }
 
+
+    @PostMapping("/pagingandsortedtaskinsprint")
+    public ResponseEntity<List<Task>> getTaskInSortedAndByFieldNameAndByDirectionAndByFieldInSprint(@RequestHeader("Token") String token, @RequestBody PagingAndSortingDetails pagingAndSortingDetails){
+
+            List<Task> tasks = taskService.getTasksByPageNumberAndNumberOfDataAndSortedByFieldInSprintAndByDirection(token,pagingAndSortingDetails);
+
+            return new ResponseEntity<>(tasks,HttpStatus.OK);
+    }
+
+    @PostMapping("/pagingandsortedtask")
+    public ResponseEntity<List<Task>> getTaskInSortedAndByFieldNameAndByDirectionAndByField(@RequestHeader("Token") String token, @RequestBody PagingAndSortingDetails pagingAndSortingDetails){
+
+        List<Task> tasks = taskService.getTasksByPageNumberAndByDirectionAndNumberOfDataAndSortedByField(token,pagingAndSortingDetails);
+
+        return new ResponseEntity<>(tasks,HttpStatus.OK);
+    }
+
+
+    @GetMapping("/tasksinsprintbypriority/{sprintId}/{priority}")
+    public ResponseEntity<List<Task>> getAllTasksInSprintByPriority(@RequestHeader("Token") String token, @PathVariable Integer sprintId, @PathVariable Priority priority){
+
+        List<Task> tasks = taskService.getAllTasksInSprintByPriority(token, sprintId, priority);
+
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+
+    }
+
+    @GetMapping("/tasksbypriority/{priority}")
+    public ResponseEntity<List<Task>> getAllTasksByPriority(@RequestHeader("Token") String token, @PathVariable Priority priority){
+
+        List<Task> tasks = taskService.getAllTasksByPriority(token, priority);
+
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+
+    }
 
 }

@@ -1,4 +1,4 @@
-package org.example.Model;
+package org.example.DTO;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;

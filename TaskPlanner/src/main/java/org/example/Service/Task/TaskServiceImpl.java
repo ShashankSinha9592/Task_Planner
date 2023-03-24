@@ -1,5 +1,6 @@
 package org.example.Service.Task;
 
+import org.example.DTO.PagingAndSortingDetails;
 import org.example.Exception.InvalidTokenException;
 import org.example.Exception.SprintException;
 import org.example.Exception.TaskException;
@@ -8,6 +9,10 @@ import org.example.Repository.SprintRepository;
 import org.example.Repository.TaskRepository;
 import org.example.Service.Authentication.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -109,6 +114,82 @@ public class TaskServiceImpl implements TaskService{
         if(tasks.isEmpty()) throw new TaskException("No Tasks found");
 
         return tasks;
+    }
+
+    @Override
+    public List<Task> getAllTasksInSprintByPriority(String token, Integer sprintId, Priority priority) {
+        User user = authenticationService.authenticateUser(token);
+
+        List<Task> tasks = taskRepository.getTasksByPriorityAndSprint(priority,sprintId, user.getUserId());
+
+        if(tasks.isEmpty()) throw new TaskException("Task not found");
+
+        return tasks;
+
+    }
+
+    @Override
+    public List<Task> getAllTasksByPriority(String token, Priority priority) {
+
+        User user = authenticationService.authenticateUser(token);
+
+        List<Task> tasks = taskRepository.getTasksByPriority(priority, user.getUserId());
+
+        if(tasks.isEmpty()) throw new TaskException("Task not found");
+
+        return tasks;
+
+    }
+
+    @Override
+    public List<Task> getTasksByPageNumberAndNumberOfDataAndSortedByFieldInSprintAndByDirection(String token, PagingAndSortingDetails pagingAndSortingDetails) {
+
+        User user = authenticationService.authenticateUser(token);
+
+        String direction = pagingAndSortingDetails.getDirection().toUpperCase();
+
+        Integer countOfData = pagingAndSortingDetails.getSize();
+
+        Integer pageNumber = pagingAndSortingDetails.getPageNumber()-1;
+
+        String fieldName = pagingAndSortingDetails.getField();
+
+        Integer sprintid = pagingAndSortingDetails.getSprintId();
+
+        Pageable pageable = PageRequest.of(pageNumber, countOfData, direction.equals("ASC")? Sort.by(fieldName).ascending() : Sort.by(fieldName).descending());
+
+        Page<Task> taskPage =  taskRepository.getTasksByPageNumberAndNumberOfDataAndSortedByFieldInSprint(user.getUserId(),sprintid,pageable);
+
+        List<Task> tasks = taskPage.getContent();
+
+        if(tasks.isEmpty()) throw new TaskException("No tasks found");
+
+        return tasks;
+    }
+
+    @Override
+    public List<Task> getTasksByPageNumberAndByDirectionAndNumberOfDataAndSortedByField(String token, PagingAndSortingDetails pagingAndSortingDetails) {
+
+        User user = authenticationService.authenticateUser(token);
+
+        String direction = pagingAndSortingDetails.getDirection().toUpperCase();
+
+        Integer countOfData = pagingAndSortingDetails.getSize();
+
+        Integer pageNumber = pagingAndSortingDetails.getPageNumber()-1;
+
+        String fieldName = pagingAndSortingDetails.getField();
+
+        Pageable pageable = PageRequest.of(pageNumber, countOfData, direction.equals("ASC")? Sort.by(fieldName).ascending() : Sort.by(fieldName).descending());
+
+        Page<Task> taskPage =  taskRepository.getTasksByPageNumberAndNumberOfDataAndSortedByField(user.getUserId(),pageable);
+
+        List<Task> tasks = taskPage.getContent();
+
+        if(tasks.isEmpty()) throw new TaskException("No tasks found");
+
+        return tasks;
+
     }
 
     @Override

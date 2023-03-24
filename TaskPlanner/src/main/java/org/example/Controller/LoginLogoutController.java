@@ -1,7 +1,7 @@
 package org.example.Controller;
 
 import jakarta.validation.Valid;
-import org.example.Model.LoginDetails;
+import org.example.DTO.LoginDetails;
 import org.example.Service.LoginLogout.LoginLogoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -30,6 +30,9 @@ public class Task {
     private String summary;
 
     @Enumerated(value = EnumType.STRING)
+    private Priority priority;
+
+    @Enumerated(value = EnumType.STRING)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private TaskStatus taskStatus;
 

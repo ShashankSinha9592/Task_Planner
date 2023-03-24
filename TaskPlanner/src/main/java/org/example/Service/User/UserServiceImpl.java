@@ -4,6 +4,7 @@ import org.example.Exception.UserException;
 import org.example.Model.User;
 import org.example.Repository.UserRepository;
 import org.example.Service.Authentication.AuthenticationService;
+import org.example.Service.LoginLogout.LoginLogoutService;
 import org.example.Service.UserNamePasswordValidator.UserNameAndPasswordValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserNameAndPasswordValidationService userNameAndPasswordValidationService;
+
+    @Autowired
+    LoginLogoutService loginLogoutService;
 
     @Autowired
     private AuthenticationService authenticationService;
@@ -45,6 +49,8 @@ public class UserServiceImpl implements UserService{
         User user = authenticationService.authenticateUser(token);
 
         userRepository.delete(user);
+
+        loginLogoutService.logoutUser(token);
 
         return user;
 

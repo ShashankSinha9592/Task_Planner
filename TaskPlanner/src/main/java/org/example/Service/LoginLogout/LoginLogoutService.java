@@ -1,8 +1,7 @@
 package org.example.Service.LoginLogout;
 
 import org.example.Exception.LoginException;
-import org.example.Model.LoginDetails;
-import org.example.Model.UserCurrentSession;
+import org.example.DTO.LoginDetails;
 
 public interface LoginLogoutService {
 
