@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/taskscheduler/sprint")
 public class SprintController {
@@ -32,5 +34,33 @@ public class SprintController {
         return new ResponseEntity<>(removedSprint,HttpStatus.OK);
 
     }
+
+    @GetMapping("/{pageNumber}/{size}")
+    public ResponseEntity<List<Sprint>> getSprintByPageNumberAndCount(@RequestHeader("Token") String token, @PathVariable Integer pageNumber, @PathVariable Integer size){
+
+        List<Sprint> sprints = sprintService.getSprintByPageNumberAndCount(token,pageNumber,size);
+
+        return new ResponseEntity<>(sprints, HttpStatus.OK);
+
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Sprint>> getAllSprint(@RequestHeader("Token") String token){
+
+        List<Sprint> sprints = sprintService.getAllSprint(token);
+
+        return new ResponseEntity<>(sprints, HttpStatus.OK);
+
+    }
+
+    @GetMapping("/{sprintId}")
+    public ResponseEntity<Sprint> getSrintById(@RequestHeader("Token") String token, @PathVariable Integer sprintId){
+
+        Sprint sprint = sprintService.getSprintById(sprintId,token);
+
+        return new ResponseEntity<>(sprint, HttpStatus.OK);
+
+    }
+
 
 }
