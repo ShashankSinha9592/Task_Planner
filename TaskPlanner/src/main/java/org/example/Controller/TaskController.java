@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/taskscheduler/task")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class TaskController {
 
     @Autowired

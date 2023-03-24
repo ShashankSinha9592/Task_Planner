@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/taskscheduler/sprint")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SprintController {
 
     @Autowired

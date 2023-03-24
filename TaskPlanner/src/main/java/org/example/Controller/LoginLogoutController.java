@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/taskscheduler")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class LoginLogoutController {
 
     @Autowired
