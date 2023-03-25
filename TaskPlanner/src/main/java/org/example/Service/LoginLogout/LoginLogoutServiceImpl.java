@@ -22,7 +22,7 @@ public class LoginLogoutServiceImpl implements LoginLogoutService{
     @Autowired
     UserCurrentSessionRepository userCurrentSessionRepository;
 
-    public String loginUser(LoginDetails loginDetails) throws LoginException{
+    public UserCurrentSession loginUser(LoginDetails loginDetails) throws LoginException{
 
         User user = userRepository.findByEmail(loginDetails.getEmail()).orElseThrow(()-> new UserException("Invalid email"));
 
@@ -30,7 +30,7 @@ public class LoginLogoutServiceImpl implements LoginLogoutService{
             throw new LoginException("Invalid Password");
         }
 
-        return generateSession(user).getToken();
+        return generateSession(user);
 
     }
 

@@ -112,4 +112,13 @@ public class TaskController {
 
     }
 
+    @GetMapping("/sortedtaskbyfield/{sprintId}/{direction}/{field}")
+    public ResponseEntity<List<Task>> getSortedByFieldAndByDirection(@PathVariable String direction, @PathVariable Integer sprintId, @PathVariable String field, @RequestHeader("Token") String token){
+
+        List<Task> sortedTasks = taskService.getSortedTaskByFieldInSprint(field,direction,sprintId,token);
+
+        return new ResponseEntity<>(sortedTasks,HttpStatus.OK);
+
+    }
+
 }

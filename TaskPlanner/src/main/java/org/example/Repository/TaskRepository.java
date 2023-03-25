@@ -4,6 +4,7 @@ import org.example.Model.Priority;
 import org.example.Model.Task;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -41,5 +42,13 @@ public interface TaskRepository extends JpaRepository<Task, Integer>, PagingAndS
             "WHERE u.userId = :userId")
     public Page<Task> getTasksByPageNumberAndNumberOfDataAndSortedByField(@Param("userId") Integer userId, Pageable pageable);
 
+
+    @Query("SELECT t FROM Task t " +
+            "INNER JOIN t.sprint s " +
+            "INNER JOIN t.sprint.user u " +
+            "WHERE u.userid = :userId " +
+            "AND " +
+            "s.sprintId= :sprintId")
+    public Page<Task> getSortedTaskInSprintAndByField(@Param("sprintId") Integer sprintId , @Param("userId") Integer userId, Sort sort);
 
 }

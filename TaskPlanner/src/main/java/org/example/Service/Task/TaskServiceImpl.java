@@ -193,6 +193,23 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
+    public List<Task> getSortedTaskByFieldInSprint(String field,String direction, Integer sprintId, String token) {
+
+        User user = authenticationService.authenticateUser(token);
+        direction = direction.toUpperCase();
+        Sort sort = direction.equals("ASC")? Sort.by(field).ascending() : Sort.by(field).descending();
+
+        Page<Task> taskPage = taskRepository.getSortedTaskInSprintAndByField(sprintId , user.getUserId(), sort);
+
+        List<Task> sortedTasks = taskPage.getContent();
+
+        if(sortedTasks.isEmpty()) throw new TaskException("Task not found");
+
+        return sortedTasks;
+
+    }
+
+    @Override
     public Task removeTask(Integer taskId, String token) {
 
         User user = authenticationService.authenticateUser(token);

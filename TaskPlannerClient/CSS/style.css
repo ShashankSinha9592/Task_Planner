@@ -30,13 +30,24 @@ nav img{
     margin-right: 50px;
 }
 
+section{
+    display: flex;
+    width: 100%;
+    border: 2px solid blue;
+    text-align: center;
+    padding: 20px;
+}
 
-#sprint{
-    margin:30px auto;
+#rightHand{
     height: 50vh;
-    width: 80vw;
+    width: 70%;
     text-align: center;
     border: 2px solid blue;
+}
+
+#leftHand{
+    width: 30%;
+    border: 2px solid green;
 }
 
 table{

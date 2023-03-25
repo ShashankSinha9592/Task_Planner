@@ -29,6 +29,7 @@ public interface TaskService {
 
     public List<Task> getTasksByPageNumberAndByDirectionAndNumberOfDataAndSortedByField(String token,PagingAndSortingDetails pagingAndSortingDetails);
 
+    public List<Task> getSortedTaskByFieldInSprint(String field,String sirection,Integer sprintId, String token);
     public Task removeTask(Integer taskId, String token);
 
 }
