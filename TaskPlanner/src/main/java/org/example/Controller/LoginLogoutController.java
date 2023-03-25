@@ -26,9 +26,11 @@ public class LoginLogoutController {
 
     }
     @GetMapping("/logout")
-    public void logoutUser(@RequestHeader("Token") String token){
+    public ResponseEntity<UserCurrentSession> logoutUser(@RequestHeader("Token") String token){
 
-        loginLogoutService.logoutUser(token);
+        UserCurrentSession userCurrentSession = loginLogoutService.logoutUser(token);
+
+        return new ResponseEntity<>(userCurrentSession,HttpStatus.ACCEPTED);
 
     }
 

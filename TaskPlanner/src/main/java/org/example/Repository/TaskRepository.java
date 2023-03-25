@@ -46,9 +46,9 @@ public interface TaskRepository extends JpaRepository<Task, Integer>, PagingAndS
     @Query("SELECT t FROM Task t " +
             "INNER JOIN t.sprint s " +
             "INNER JOIN t.sprint.user u " +
-            "WHERE u.userid = :userId " +
+            "WHERE u.userId = :userId " +
             "AND " +
             "s.sprintId= :sprintId")
-    public Page<Task> getSortedTaskInSprintAndByField(@Param("sprintId") Integer sprintId , @Param("userId") Integer userId, Sort sort);
+    public List<Task> getSortedTaskInSprintAndByField(@Param("sprintId") Integer sprintId , @Param("userId") Integer userId, Sort sort);
 
 }

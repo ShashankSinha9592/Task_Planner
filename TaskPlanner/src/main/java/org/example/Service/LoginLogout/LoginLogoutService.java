@@ -8,6 +8,6 @@ public interface LoginLogoutService {
 
     public UserCurrentSession loginUser(LoginDetails loginDetails) throws LoginException;
 
-    public void logoutUser(String token);
+    public UserCurrentSession logoutUser(String token);
 
 }

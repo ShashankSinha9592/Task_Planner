@@ -35,11 +35,12 @@ public class LoginLogoutServiceImpl implements LoginLogoutService{
     }
 
     @Override
-    public void logoutUser(String token) {
+    public UserCurrentSession logoutUser(String token) {
 
         UserCurrentSession userCurrentSession = userCurrentSessionRepository.findByToken(token).orElseThrow(()-> new LoginException("Invalid token"));
 
         userCurrentSessionRepository.delete(userCurrentSession);
+        return userCurrentSession;
 
     }
 
