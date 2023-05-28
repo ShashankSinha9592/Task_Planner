@@ -21,9 +21,7 @@ A Task Planner helps in ease for user to plan his tasks and execute them accordi
 <p>* Manage and Controls His Tasks and Sprint</p>
 
 
-Swagger UI documentation link
-
-<b>URL</b> : https://taskplanner-production-b2a1.up.railway.app/swagger-ui/index.html#/
+<b>URL</b> : https://taskplanner-production-bcaf.up.railway.app
 
 <h3>User Controller</h3> 
 
